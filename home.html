@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=JetBrains+Mono:wght@300;400;500&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #05080f;
+    --bg2: #0a0f1e;
+    --bg3: #0f1628;
+    --teal: #00e5c3;
+    --teal-dim: #00b39a;
+    --amber: #f0a000;
+    --text: #e8eaf0;
+    --text-muted: #7a8299;
+    --border: rgba(0,229,195,0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── CANVAS BG ─── */
+  #canvas-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(5,8,15,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  .nav-logo {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--teal); }
+
+  /* ─── HERO ─── */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 1;
+  }
+
+  .hero-content { max-width: 780px; }
+
+  .hero-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--teal);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: inline-block;
+    width: 40px;
+    height: 1px;
+    background: var(--teal);
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(4rem, 9vw, 8rem);
+    font-weight: 800;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  h1 .line-accent { color: var(--teal); }
+  h1 .line-dim { color: var(--text-muted); font-weight: 300; }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #a0a8c0;
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .btn-primary {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--teal);
+    padding: 0.85rem 2rem;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+
+  .btn-primary:hover { background: var(--teal-dim); transform: translateY(-2px); }
+
+  .btn-secondary {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: transparent;
+    padding: 0.85rem 2rem;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  .btn-secondary:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* ─── HERO STATS ─── */
+  .hero-stats {
+    position: absolute;
+    right: 4rem;
+    bottom: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    z-index: 1;
+  }
+
+  .stat-item { text-align: right; }
+
+  .stat-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--teal);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 0.2rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: float 2.5s ease-in-out infinite;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ─── SECTION BASE ─── */
+  section { position: relative; z-index: 1; padding: 6rem 4rem; }
+
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--teal);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    display: inline-block;
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--teal);
+    opacity: 0.4;
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    margin-bottom: 3rem;
+  }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--bg2); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #a0a8c0;
+    margin-bottom: 1.25rem;
+  }
+
+  .about-text p strong { color: var(--teal); font-weight: 500; }
+
+  .about-right { display: flex; flex-direction: column; gap: 2rem; }
+
+  .tech-layer {
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: relative;
+    background: rgba(0,229,195,0.02);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .layer-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .layer-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--teal);
+    background: rgba(0,229,195,0.08);
+    border: 1px solid rgba(0,229,195,0.2);
+    padding: 0.25rem 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+  }
+
+  .project-card {
+    background: var(--bg2);
+    padding: 2.5rem;
+    border-top: 2px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+    cursor: default;
+  }
+
+  .project-card:hover {
+    border-top-color: var(--teal);
+    background: var(--bg3);
+  }
+
+  .project-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 5rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+
+  .project-type {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--amber);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 1rem;
+    line-height: 1.1;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .project-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .stack-chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.2rem 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── SKILL BARS ─── */
+  #skills { background: var(--bg2); }
+
+  .skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .skill-item { margin-bottom: 1.75rem; }
+
+  .skill-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.6rem;
+  }
+
+  .skill-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .skill-pct {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--teal);
+  }
+
+  .skill-track {
+    height: 2px;
+    background: rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: var(--teal);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .skill-fill.animated { transform: scaleX(1); }
+
+  /* ─── TIMELINE ─── */
+  #experience { background: var(--bg); }
+
+  .timeline { position: relative; padding-left: 2rem; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--teal), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2.5rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -0.35rem;
+    top: 0.35rem;
+    width: 8px;
+    height: 8px;
+    background: var(--teal);
+    transform: rotate(45deg);
+  }
+
+  .timeline-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-role {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-company {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-muted);
+    max-width: 600px;
+  }
+
+  /* ─── CONTACT ─── */
+  #contact {
+    background: var(--bg2);
+    text-align: center;
+    padding: 8rem 4rem;
+  }
+
+  .contact-big {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.95;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-big span { color: var(--teal); }
+
+  .contact-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+
+  .contact-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .contact-link:hover { color: var(--teal); border-color: var(--teal); }
+
+  .contact-link svg { width: 14px; height: 14px; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── REVEAL ANIMATION ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--teal); opacity: 0.4; }
+
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    #hero { padding: 0 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .skills-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { display: none; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">[ PORTFOLIO ]</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-content">
+    <div class="hero-tag">IoT · Data · Infrastructure</div>
+    <h1>
+      <span class="line-dim">Full-Stack</span><br>
+      <span class="line-accent">Systems</span><br>
+      <span>Engineer</span>
+    </h1>
+    <p class="hero-desc">
+      Internet Engineering Technology graduate from Universitas Gadjah Mada.
+      I connect the dots between hardware, data, and infrastructure —
+      building automated, reliable systems from edge to cloud.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">5+</div>
+      <div class="stat-label">Tech Domains</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">01 // About</div>
+  <h2>Who I Am</h2>
+
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <p>
+        What sets me apart is my ability to operate across the <strong>full technical stack</strong>.
+        While many engineers specialize in a single layer, I thrive at the intersection of
+        hardware, data, and infrastructure.
+      </p>
+      <p>
+        I design and deploy <strong>IoT sensor networks</strong> to capture real-world data,
+        build robust <strong>ETL pipelines</strong> in Python and PHP to transform it into
+        actionable insights, and manage the <strong>server and cloud environments</strong>
+        that keep everything running at scale.
+      </p>
+      <p>
+        Whether it's architecting a data warehouse, automating infrastructure workflows,
+        or optimizing server performance — I bring both the breadth to see the big picture
+        and the depth to execute on the details.
+      </p>
+    </div>
+
+    <div class="about-right">
+      <div class="tech-layer">
+        <div class="layer-title">// Layer 01 — Edge</div>
+        <div class="layer-tags">
+          <span class="tag">IoT Sensors</span>
+          <span class="tag">MQTT</span>
+          <span class="tag">Raspberry Pi</span>
+          <span class="tag">Arduino</span>
+          <span class="tag">ESP32</span>
+        </div>
+      </div>
+      <div class="tech-layer">
+        <div class="layer-title">// Layer 02 — Data</div>
+        <div class="layer-tags">
+          <span class="tag">Python</span>
+          <span class="tag">PHP</span>
+          <span class="tag">ETL Pipelines</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">Data Warehouse</span>
+        </div>
+      </div>
+      <div class="tech-layer">
+        <div class="layer-title">// Layer 03 — Infrastructure</div>
+        <div class="layer-tags">
+          <span class="tag">Linux Server</span>
+          <span class="tag">Docker</span>
+          <span class="tag">Cloud (AWS/GCP)</span>
+          <span class="tag">CI/CD</span>
+          <span class="tag">Nginx</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">02 // Projects</div>
+  <h2>Featured Work</h2>
+
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">01</div>
+      <div class="project-type">IoT + Data Pipeline</div>
+      <div class="project-title">Real-Time Environment Monitoring System</div>
+      <p class="project-desc">
+        End-to-end IoT system capturing temperature, humidity, and air quality data
+        from distributed sensors. Built ETL pipeline to process and visualize
+        data in real time with alerting capabilities.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">MQTT</span>
+        <span class="stack-chip">InfluxDB</span>
+        <span class="stack-chip">Grafana</span>
+        <span class="stack-chip">ESP32</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">02</div>
+      <div class="project-type">Data Warehouse</div>
+      <div class="project-title">Automated ETL & Analytics Platform</div>
+      <p class="project-desc">
+        Designed and implemented a data warehouse architecture with automated
+        ETL pipelines ingesting data from multiple sources. Reduced manual
+        reporting time by 80% through full automation.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">Apache Airflow</span>
+        <span class="stack-chip">PostgreSQL</span>
+        <span class="stack-chip">dbt</span>
+        <span class="stack-chip">Metabase</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">03</div>
+      <div class="project-type">Infrastructure</div>
+      <div class="project-title">Server Automation & Performance Tuning</div>
+      <p class="project-desc">
+        Containerized legacy monolith application and migrated to Docker-based
+        microservices. Implemented CI/CD pipeline and automated server provisioning,
+        cutting deployment time from hours to minutes.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Docker</span>
+        <span class="stack-chip">Linux</span>
+        <span class="stack-chip">Nginx</span>
+        <span class="stack-chip">GitHub Actions</span>
+        <span class="stack-chip">Ansible</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">04</div>
+      <div class="project-type">Cloud + Backend</div>
+      <div class="project-title">Scalable API Gateway & Cloud Deployment</div>
+      <p class="project-desc">
+        Built RESTful API backend with PHP and Python, deployed on AWS EC2
+        with auto-scaling groups and RDS database. Achieved 99.9% uptime
+        with automated health checks and failover.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">PHP</span>
+        <span class="stack-chip">AWS EC2</span>
+        <span class="stack-chip">RDS</span>
+        <span class="stack-chip">S3</span>
+        <span class="stack-chip">CloudWatch</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">05</div>
+      <div class="project-type">IoT + ML</div>
+      <div class="project-title">Predictive Maintenance with Sensor Data</div>
+      <p class="project-desc">
+        Collected vibration and temperature sensor data from industrial equipment,
+        trained anomaly detection model to predict failure 48 hours in advance.
+        Deployed model as lightweight edge inference.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">Scikit-learn</span>
+        <span class="stack-chip">MQTT</span>
+        <span class="stack-chip">TensorFlow Lite</span>
+        <span class="stack-chip">Raspberry Pi</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-num">06</div>
+      <div class="project-type">Dashboard + Visualization</div>
+      <div class="project-title">Operations Intelligence Dashboard</div>
+      <p class="project-desc">
+        Unified dashboard aggregating IoT streams, server metrics, and business
+        KPIs into a single pane of glass. Real-time alerting via Telegram bot
+        integration with automated incident reports.
+      </p>
+      <div class="project-stack">
+        <span class="stack-chip">Grafana</span>
+        <span class="stack-chip">Prometheus</span>
+        <span class="stack-chip">Python</span>
+        <span class="stack-chip">Telegram API</span>
+        <span class="stack-chip">PostgreSQL</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">03 // Skills</div>
+  <h2>Technical Proficiency</h2>
+
+  <div class="skills-layout">
+    <div class="reveal">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Python</span><span class="skill-pct">92%</span></div>
+        <div class="skill-track"><div class="skill-fill" style="--w:0.92" data-pct="0.92"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">IoT & Embedded Systems</span><span class="skill-pct">88%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.88"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">PHP / Backend Dev</span><span class="skill-pct">80%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.80"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Linux Server Management</span><span class="skill-pct">85%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.85"></div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">ETL & Data Pipelines</span><span class="skill-pct">87%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.87"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Docker & Containerization</span><span class="skill-pct">82%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.82"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Cloud Infrastructure (AWS/GCP)</span><span class="skill-pct">75%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.75"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-header"><span class="skill-name">Database & Data Warehouse</span><span class="skill-pct">83%</span></div>
+        <div class="skill-track"><div class="skill-fill" data-pct="0.83"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">04 // Experience</div>
+  <h2>Work History</h2>
+
+  <div class="timeline reveal">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2023 — Present</div>
+      <div class="timeline-role">Data & Infrastructure Engineer</div>
+      <div class="timeline-company">[ Nama Perusahaan ]</div>
+      <p class="timeline-desc">
+        Architecting end-to-end data infrastructure including ETL pipelines,
+        data warehouse design, and IoT data ingestion systems. Managing cloud
+        servers and CI/CD deployments for production environments.
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2022 — 2023</div>
+      <div class="timeline-role">Backend & IoT Developer</div>
+      <div class="timeline-company">[ Nama Perusahaan ]</div>
+      <p class="timeline-desc">
+        Developed PHP-based backend APIs and Python data processing scripts.
+        Deployed and maintained IoT sensor networks for remote monitoring
+        applications across multiple client sites.
+      </p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2018 — 2022</div>
+      <div class="timeline-role">S1 — Internet Engineering Technology</div>
+      <div class="timeline-company">Universitas Gadjah Mada</div>
+      <p class="timeline-desc">
+        Focused on network systems, embedded programming, and data communications.
+        Final thesis on IoT-based infrastructure monitoring with automated
+        anomaly detection.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label" style="justify-content:center">05 // Contact</div>
+  <div class="contact-big">
+    Let's Build<br><span>Something</span><br>Great.
+  </div>
+  <p class="contact-sub">
+    Looking for an engineer who speaks both data and infrastructure?<br>
+    Let's connect.
+  </p>
+  <div class="contact-links">
+    <a href="mailto:your@email.com" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      Email
+    </a>
+    <a href="https://linkedin.com/in/username" class="contact-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/username" class="contact-link" target="_blank">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="/resume.pdf" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      Download CV
+    </a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 — Built with precision. All rights reserved.
+</footer>
+
+<script>
+// ─── CANVAS GRID ANIMATION ───
+const canvas = document.getElementById('canvas-bg');
+const ctx = canvas.getContext('2d');
+let W, H, dots = [], lines = [];
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+
+function initDots() {
+  dots = [];
+  const count = Math.floor((W * H) / 18000);
+  for (let i = 0; i < count; i++) {
+    dots.push({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: (Math.random() - 0.5) * 0.3,
+      r: Math.random() * 1.5 + 0.5
+    });
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  for (let i = 0; i < dots.length; i++) {
+    const d = dots[i];
+    d.x += d.vx; d.y += d.vy;
+    if (d.x < 0 || d.x > W) d.vx *= -1;
+    if (d.y < 0 || d.y > H) d.vy *= -1;
+    ctx.beginPath();
+    ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,229,195,0.6)';
+    ctx.fill();
+    for (let j = i + 1; j < dots.length; j++) {
+      const d2 = dots[j];
+      const dist = Math.hypot(d.x - d2.x, d.y - d2.y);
+      if (dist < 120) {
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d2.x, d2.y);
+        ctx.strokeStyle = `rgba(0,229,195,${0.12 * (1 - dist / 120)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(draw);
+}
+
+resize();
+initDots();
+draw();
+window.addEventListener('resize', () => { resize(); initDots(); });
+
+// ─── REVEAL ON SCROLL ───
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      // skill bars
+      e.target.querySelectorAll('.skill-fill').forEach(bar => {
+        const pct = parseFloat(bar.dataset.pct);
+        bar.style.width = (pct * 100) + '%';
+        bar.classList.add('animated');
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+revealEls.forEach(el => observer.observe(el));
+
+// skills in about section (auto-visible)
+document.querySelectorAll('.skill-fill').forEach(bar => {
+  const pct = parseFloat(bar.dataset.pct);
+  bar.style.width = (pct * 100) + '%';
+});
+</script>
+</body>
+</html>
