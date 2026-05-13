@@ -411,7 +411,7 @@
     transform: translateY(-4px);
   }
 
-  .mini-card .mini-num {
+  .mini-card {
     font-size: 2.2rem;
     color: rgba(255,255,255,0.04);
     margin-bottom: 0.5rem;
@@ -434,8 +434,8 @@
   @media (max-width: 1100px) {
     .mini-grid { grid-template-columns: repeat(2, 1fr); }
     .mini-card { height: 96px; padding: 1rem; }
-    .mini-card .project-num { font-size: 1.8rem; }
-    .mini-card .project-title { font-size: 1rem; }
+    .mini-card { font-size: 1.8rem; }
+    .mini-card .mini-title { font-size: 1rem; }
   }
 
   @media (max-width: 600px) {
