@@ -385,63 +385,29 @@
 
   #mini-projects h2 { margin-bottom: 1.25rem; }
 
-  .mini-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-  }
-
-  .mini-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  .mini-links {
     justify-content: center;
-    padding: 1.25rem;
-    height: 110px;
-    background: var(--bg2);
-    border-top: 2px solid transparent;
-    text-decoration: none;
-    cursor: pointer;
-    transition: border-color 0.25s, background 0.25s, transform 0.16s;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
   }
 
-  .mini-card:hover {
-    border-top-color: var(--teal);
-    background: var(--bg3);
-    transform: translateY(-4px);
-  }
-
-  .mini-card {
-    font-size: 2.2rem;
-    color: rgba(255,255,255,0.04);
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-  }
-
-  .mini-card .mini-title {
-    font-size: 1.05rem;
-    font-weight: 700;
+  .mini-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--text);
-    line-height: 1.05;
-    letter-spacing: 0.02em;
+    color: var(--text-muted);
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: color 0.3s, border-color 0.3s;
   }
 
-  .project-card.compact .project-type,
-  .project-card.compact .project-desc,
-  .project-card.compact .project-stack { display: none !important; }
-
-  @media (max-width: 1100px) {
-    .mini-grid { grid-template-columns: repeat(2, 1fr); }
-    .mini-card { height: 96px; padding: 1rem; }
-    .mini-card { font-size: 1.8rem; }
-    .mini-card .mini-title { font-size: 1rem; }
-  }
-
-  @media (max-width: 600px) {
-    .mini-grid { grid-template-columns: 1fr; }
-    #mini-projects { padding: 2rem 1.5rem; }
-  }
+  .mini-link:hover { color: var(--teal); border-color: var(--teal); }
 
   /* ─── SKILL BARS ─── */
   #skills { background: var(--bg); }
