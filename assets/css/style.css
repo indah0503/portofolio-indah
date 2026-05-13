@@ -380,43 +380,71 @@
   }
 
   /* ─── MINI PROJECTS ─── */
-  #mini-projects { background: var(--bg2); padding-top: 2rem; padding-bottom: 3rem; }
 
-  #mini-projects h2 { margin-bottom: 1.5rem; }
+  #mini-projects { background: var(--bg2); padding: 3rem 4rem; }
+
+  #mini-projects h2 { margin-bottom: 1.25rem; }
 
   .mini-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
-    align-items: stretch;
   }
 
   .mini-card {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
     padding: 1.25rem;
-    text-align: center;
-    color: var(--bg);
-    background: var(--teal);
+    height: 110px;
+    background: var(--bg2);
+    border-top: 2px solid transparent;
     text-decoration: none;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    transition: transform 0.18s ease, background 0.18s ease;
-    border-radius: 8px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+    cursor: pointer;
+    transition: border-color 0.25s, background 0.25s, transform 0.16s;
   }
 
-  .mini-card:hover { transform: translateY(-4px); background: var(--teal-dim); }
+  .mini-card:hover {
+    border-top-color: var(--teal);
+    background: var(--bg3);
+    transform: translateY(-4px);
+  }
 
-  @media (max-width: 900px) {
-    .mini-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .mini-card .mini-num {
+    font-size: 2.2rem;
+    color: rgba(255,255,255,0.04);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .mini-card .mini-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--text);
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+  }
+
+  .mini-card .mini-type,
+  .mini-card .mini-desc,
+  .mini-card .mini-stack { display: none !important; }
+
+  @media (max-width: 1100px) {
+    .mini-grid { grid-template-columns: repeat(2, 1fr); }
+    .mini-card { height: 96px; padding: 1rem; }
+    .mini-card .project-num { font-size: 1.8rem; }
+    .mini-card .project-title { font-size: 1rem; }
+  }
+
+  @media (max-width: 600px) {
+    .mini-grid { grid-template-columns: 1fr; }
+    #mini-projects { padding: 2rem 1.5rem; }
   }
 
   /* ─── SKILL BARS ─── */
-  #skills { background: var(--bg2); }
+  #skills { background: var(--bg); }
 
   .skills-layout {
     display: grid;
@@ -464,7 +492,7 @@
   .skill-fill.animated { transform: scaleX(1); }
 
   /* ─── TIMELINE ─── */
-  #experience { background: var(--bg); }
+  #experience { background: var(--bg2); }
 
   .timeline { position: relative; padding-left: 2rem; }
 
@@ -524,11 +552,11 @@
   }
 
   /* ─── EDUCATION ─── */
-  #education { background: var(--bg2); }
+  #education { background: var(--bg); }
 
   /* ─── CONTACT ─── */
   #contact {
-    background: var(--bg);
+    background: var(--bg2);
     text-align: center;
     padding: 8rem 4rem;
   }
