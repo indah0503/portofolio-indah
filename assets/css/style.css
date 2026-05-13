@@ -381,9 +381,7 @@
 
   /* ─── MINI PROJECTS ─── */
 
-  #mini-projects { background: var(--bg2); padding: 3rem 4rem; }
-
-  #mini-projects h2 { margin-bottom: 1.25rem; }
+  #mini-projects { background: var(--bg2); }
 
   .mini-links {
     justify-content: center;
