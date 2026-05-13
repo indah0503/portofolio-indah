@@ -487,9 +487,36 @@
     max-width: 600px;
   }
 
+  /* ─── EDUCATION ─── */
+  #education { background: var(--bg2); }
+
+  .timeline-year {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--amber);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.4rem;
+  }
+
+  .timeline-program {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.2rem;
+  }
+
+  .timeline-school {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--teal);
+    margin-bottom: 0.75rem;
+  }
+
   /* ─── CONTACT ─── */
   #contact {
-    background: var(--bg2);
+    background: var(--bg);
     text-align: center;
     padding: 8rem 4rem;
   }
