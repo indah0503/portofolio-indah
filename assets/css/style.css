@@ -456,7 +456,7 @@
     transform: rotate(45deg);
   }
 
-  .timeline-date {
+  .timeline-date, .timeline-year {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.7rem;
     color: var(--amber);
@@ -464,7 +464,7 @@
     margin-bottom: 0.4rem;
   }
 
-  .timeline-role {
+  .timeline-role, .timeline-program {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.4rem;
     font-weight: 700;
@@ -473,14 +473,14 @@
     margin-bottom: 0.2rem;
   }
 
-  .timeline-company {
+  .timeline-company, .timeline-school {
     font-family: 'JetBrains Mono', monospace;
     font-size: 0.75rem;
     color: var(--teal);
     margin-bottom: 0.75rem;
   }
 
-  .timeline-desc {
+  .timeline-desc, .timeline-study {
     font-size: 0.9rem;
     line-height: 1.7;
     color: var(--text-muted);
@@ -489,63 +489,6 @@
 
   /* ─── EDUCATION ─── */
   #education { background: var(--bg2); }
-
-  .timeline { position: relative; padding-left: 2rem; }
-
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--teal), transparent);
-  }
-
-  .timeline-item {
-    position: relative;
-    padding: 0 0 3rem 2.5rem;
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: -0.35rem;
-    top: 0.35rem;
-    width: 8px;
-    height: 8px;
-    background: var(--teal);
-    transform: rotate(45deg);
-  }
-
-  .timeline-year {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--amber);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.4rem;
-  }
-
-  .timeline-program {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    margin-bottom: 0.2rem;
-  }
-
-  .timeline-school {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--teal);
-    margin-bottom: 0.75rem;
-  }
-
-  .timeline-study {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--text-muted);
-    max-width: 600px;
-  }
 
   /* ─── CONTACT ─── */
   #contact {
